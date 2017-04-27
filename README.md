@@ -88,7 +88,6 @@ Most of the global configuration items can be overriden in the per server as wel
         - { name: 'streaming_archiver', value: 'on' }
         - { name: 'slot_name', value: 'barman' }
         - { name: 'backup_method', value: 'postgres' }
-        - { name: 'backup_method', value: 'postgres' }
   roles:
     - thedumbtechguy.pgbarman
 ```

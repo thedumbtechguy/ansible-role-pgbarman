@@ -7,4 +7,6 @@ pgbarman_configuration_directory: /etc/barman.d
 
 pgbarman_server_configuration: []
 
+pgbarman_compression: None
+
 

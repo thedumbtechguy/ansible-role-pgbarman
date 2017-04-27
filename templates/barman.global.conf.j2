@@ -27,7 +27,7 @@ log_file = /var/log/barman/barman.log
 log_level = {{ pgbarman_log_level }}
 
 ; Default wal compression level: possible values are None (default), bzip2, gzip, pigz, pygzip or pybzip2
-compression = {{ pgbarman_compression|default('None') }}
+compression = {{ pgbarman_compression }}
 
 ; Pre/post backup hook scripts
 pre_backup_script = {{ pgbarman_pre_backup_script|default(':') }}
