@@ -1,0 +1,10 @@
+---
+
+pgbarman_user: barman
+pgbarman_home: /var/lib/barman
+pgbarman_configuration_directory: /etc/barman.d
+# pgbarman_pg_pass
+
+pgbarman_server_configuration: []
+
+

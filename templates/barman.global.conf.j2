@@ -1,0 +1,85 @@
+;
+; {{ ansible_managed }}
+;
+; Barman, Backup and Recovery Manager for PostgreSQL
+; http://www.pgbarman.org/ - http://www.2ndQuadrant.com/
+;
+; Main configuration file
+
+[barman]
+; System user
+barman_user = {{ pgbarman_user }}
+
+; Directory of configuration files. Place your sections in separate files with .conf extension
+; For example place the 'main' server section in /etc/barman.d/main.conf
+configuration_files_directory = {{ pgbarman_configuration_directory }}
+
+; Main directory
+barman_home = {{ pgbarman_home }}
+
+; Locks directory - default: %(barman_home)s
+;barman_lock_directory = {{ pgbarman_lock_directory|default(pgbarman_home) }}
+
+; Log location
+log_file = /var/log/barman/barman.log
+
+; Log level (see https://docs.python.org/3/library/logging.html#levels)
+log_level = {{ pgbarman_log_level }}
+
+; Default wal compression level: possible values are None (default), bzip2, gzip, pigz, pygzip or pybzip2
+compression = {{ pgbarman_compression|default('None') }}
+
+; Pre/post backup hook scripts
+pre_backup_script = {{ pgbarman_pre_backup_script|default(':') }}
+pre_backup_retry_script = {{ pgbarman_pre_backup_retry_script|default(':') }}
+post_backup_retry_script = {{ pgbarman_post_backup_retry_script|default(':') }}
+post_backup_script = {{ pgbarman_post_backup_script|default(':') }}
+
+; Pre/post archive hook scripts
+pre_archive_script = {{ pgbarman_pre_archive_script|default(':') }}
+pre_archive_retry_script = {{ pgbarman_pre_archive_retry_script|default(':') }}
+post_archive_retry_script = {{ pgbarman_post_archive_retry_script|default(':') }}
+post_archive_script = {{ pgbarman_post_archive_script|default(':') }}
+
+; Global retention policy (REDUNDANCY or RECOVERY WINDOW) - default empty
+retention_policy = {{ pgbarman_backup_retention_policy|default('') }}
+
+; Global bandwidth limit in KBPS - default 0 (meaning no limit)
+bandwidth_limit = {{ pgbarman_backup_bandwidth_limit|default('0') }}
+
+; Immediate checkpoint for backup command - default false
+immediate_checkpoint = {{ pgbarman_backup_immediate_checkpoint|default('false') }}
+
+; Enable network compression for data transfers - default false
+network_compression = {{ pgbarman_network_compression|default('false') }}
+
+; Number of retries of data copy during base backup after an error - default 0
+basebackup_retry_times = {{ pgbarman_basebackup_retry_times|default('0') }}
+
+; Number of seconds of wait after a failed copy, before retrying - default 30
+basebackup_retry_sleep = {{ pgbarman_basebackup_retry_sleep|default('30') }}
+
+; Maximum execution time, in seconds, per server
+; for a barman check command - default 30
+check_timeout = {{ pgbarman_check_timeout|default('30') }}
+
+; Time frame that must contain the latest backup date.
+; If the latest backup is older than the time frame, barman check
+; command will report an error to the user.
+; If empty, the latest backup is always considered valid.
+; Syntax for this option is: "i (DAYS | WEEKS | MONTHS)" where i is an
+; integer > 0 which identifies the number of days | weeks | months of
+; validity of the latest backup for this check. Also known as 'smelly backup'.
+last_backup_maximum_age = {{ pgbarman_last_backup_maximum_age|default('') }}
+
+; Minimum number of required backups (redundancy)
+minimum_redundancy = {{ pgbarman_minimum_redundancy|default('1') }}
+
+; Examples of retention policies
+; Retention policy (disabled)
+;retention_policy =
+; Retention policy (based on redundancy)
+;retention_policy = REDUNDANCY 2
+; Retention policy (based on recovery window)
+;retention_policy = RECOVERY WINDOW OF 4 WEEKS
+retention_policy = {{ pgbarman_retention_policy|default('') }}

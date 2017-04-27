@@ -1,0 +1,16 @@
+;
+; {{ ansible_managed }}
+;
+; Barman, Backup and Recovery Manager for PostgreSQL
+; http://www.pgbarman.org/ - http://www.2ndQuadrant.com/
+;
+
+{% for server in pgbarman_server_configuration %}
+[{{ server.name }}]
+
+description = "{{ server.name|default(server.name) }}"
+{% for item in server.config %}
+{{ item.name }} = "{{ item.value }}"
+{% endfor %}
+
+{% endfor %}

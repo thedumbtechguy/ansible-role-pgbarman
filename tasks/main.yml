@@ -1,0 +1,11 @@
+---
+
+- include: install.yml
+  tags: 
+    - pgbarman
+    - install
+
+- include: configure.yml
+  tags: 
+    - pgbarman
+    - configure

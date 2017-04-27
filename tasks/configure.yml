@@ -1,0 +1,35 @@
+---
+
+- name: add .pgpass file
+  copy:
+    content: '{{ pgbarman_pg_pass }}'
+    dest: '{{ pgbarman_home }}/.pgpass'
+    owner: '{{ pgbarman_user }}'
+    mode: 0400
+  when: pgbarman_pg_pass is defined
+  become: true
+
+- name: remove .pgpass file
+  file:
+    path: '{{ pgbarman_home }}/.pgpass'
+    stfileate: absent
+  when: pgbarman_pg_pass is not defined
+  become: true
+
+- name: ensure barman global configuration is set
+  template: 
+    src: barman.global.conf.j2
+    dest: '/etc/barman.conf'
+    owner: '{{ pgbarman_user }}'
+    mode: 0600
+    backup: true
+  become: true
+
+- name: ensure barman server configuration is set
+  template: 
+    src: barman.server.conf.j2
+    dest: '{{ pgbarman_configuration_directory }}/pgbarman_servers.conf'
+    owner: '{{ pgbarman_user }}'
+    mode: 0600
+    backup: true
+  become: true
