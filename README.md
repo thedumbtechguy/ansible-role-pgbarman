@@ -56,16 +56,16 @@ You can find more global configuration variables in [the global configuration](t
   - Example:
   ```yaml
     pgbarman_server_configuration:
-      name: pg # server name/identifier. required
-      description: Configuration for pg server # server description. default(name)
-      config: # configuration items. each item is a name, value pair. required
-        - { name: 'conninfo', value: 'host=pg user=barman dbname=postgres' }
-        - { name: 'streaming_conninfo', value: 'host=pg user=streaming_barman' }
-        - { name: 'backup_method', value: 'postgres' }
-        - { name: 'streaming_archiver', value: 'on' }
-        - { name: 'slot_name', value: 'barman' }
-        - { name: 'backup_method', value: 'postgres' }
-        - { name: 'backup_method', value: 'postgres' }
+      - name: pg # server name/identifier. required
+        description: Configuration for pg server # server description. default(name)
+        config: # configuration items. each item is a name, value pair. required
+          - { name: 'conninfo', value: 'host=pg user=barman dbname=postgres' }
+          - { name: 'streaming_conninfo', value: 'host=pg user=streaming_barman' }
+          - { name: 'backup_method', value: 'postgres' }
+          - { name: 'streaming_archiver', value: 'on' }
+          - { name: 'slot_name', value: 'barman' }
+          - { name: 'backup_method', value: 'postgres' }
+          - { name: 'backup_method', value: 'postgres' }
   ```
 
 You can view the [ssh](files/ssh-server-template.conf) and [streaming](files/streaming-server-template.conf) configuration templates for guidelines.
@@ -77,17 +77,16 @@ Most of the global configuration items can be overriden in the per server as wel
 ```yaml
 - hosts: all
   vars:
-    pgbarman_pg_pass: "pg:5432:postgres:barman:pa55w0rd"
+    pgbarman_pg_pass: "*:*:*:*:1"
     pgbarman_server_configuration:
-      name: pg # server name/identifier. required
-      description: Configuration for pg server # server description. default('')
-      config: # configuration items. each item has a name and a value. required
-        - { name: 'conninfo', value: 'host=pg user=barman dbname=postgres' }
-        - { name: 'streaming_conninfo', value: 'host=pg user=streaming_barman' }
-        - { name: 'backup_method', value: 'postgres' }
-        - { name: 'streaming_archiver', value: 'on' }
-        - { name: 'slot_name', value: 'barman' }
-        - { name: 'backup_method', value: 'postgres' }
+      - name: db1
+        description: streaming test for db1
+        config:
+            - { name: 'conninfo', value: 'host=192.168.160.143 user=barman dbname=test' }
+            - { name: 'streaming_conninfo', value: 'host=192.168.160.143 user=streaming_barman' }
+            - { name: 'backup_method', value: 'postgres' }
+            - { name: 'streaming_archiver', value: 'on' }
+            - { name: 'slot_name', value: 'barman' }
   roles:
     - thedumbtechguy.pgbarman
 ```
