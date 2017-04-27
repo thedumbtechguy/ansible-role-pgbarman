@@ -82,7 +82,7 @@ Most of the global configuration items can be overriden in the per server as wel
       - name: db1
         description: streaming test for db1
         config:
-            - { name: 'conninfo', value: 'host=192.168.160.143 user=barman dbname=test' }
+            - { name: 'conninfo', value: 'host=192.168.160.143 user=barman dbname=postgres' }
             - { name: 'streaming_conninfo', value: 'host=192.168.160.143 user=streaming_barman' }
             - { name: 'backup_method', value: 'postgres' }
             - { name: 'streaming_archiver', value: 'on' }
