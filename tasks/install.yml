@@ -29,4 +29,4 @@
     update_cache: yes
     cache_valid_time: 3600
   become: true
-  when: pgbarman_compression == 'bzip2' or pgbarman_compression == 'gzip' or pgbarman_compression = 'pigz'
+  when: pgbarman_compression == 'bzip2' or pgbarman_compression == 'gzip' or pgbarman_compression == 'pigz'
