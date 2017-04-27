@@ -35,12 +35,14 @@
     backup: true
   become: true
 
-
 - name: ensure replication slot is created
   command: 'barman receive-wal --create-slot {{ item.name }}'
   become: true
   become_user: '{{ pgbarman_user }}'
-  when: item.config.slot_name is defined
+  when: "'slot_name' in item.config|join(',')"
   with_items: '{{ pgbarman_server_configuration }}'
+  changed_when: False
+  ignore_errors: true
   vars:
     ansible_ssh_pipelining: true
+
