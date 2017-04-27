@@ -15,6 +15,7 @@
     stfileate: absent
   when: pgbarman_pg_pass is not defined
   become: true
+  no_log: true
 
 - name: ensure barman global configuration is set
   template: 
@@ -33,3 +34,13 @@
     mode: 0600
     backup: true
   become: true
+
+
+- name: ensure replication slot is created
+  command: 'barman receive-wal --create-slot {{ item.name }}'
+  become: true
+  become_user: '{{ pgbarman_user }}'
+  when: item.config.slot_name is defined
+  with_items: '{{ pgbarman_server_configuration }}'
+  vars:
+    ansible_ssh_pipelining: true

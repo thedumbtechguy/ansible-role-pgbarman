@@ -63,7 +63,7 @@ You can find more global configuration variables in [the global configuration](t
           - { name: 'streaming_conninfo', value: 'host=pg user=streaming_barman' }
           - { name: 'backup_method', value: 'postgres' }
           - { name: 'streaming_archiver', value: 'on' }
-          - { name: 'slot_name', value: 'barman' }
+          - { name: 'slot_name', value: 'barman' } # a slot is automatically created when this value item is defined
           - { name: 'backup_method', value: 'postgres' }
           - { name: 'backup_method', value: 'postgres' }
   ```
