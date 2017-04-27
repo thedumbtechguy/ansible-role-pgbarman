@@ -8,7 +8,7 @@
 {% for server in pgbarman_server_configuration %}
 [{{ server.name }}]
 
-description = "{{ server.name|default(server.name) }}"
+description = "{{ server.description|default(server.name) }}"
 {% for item in server.config %}
 {{ item.name }} = "{{ item.value }}"
 {% endfor %}
