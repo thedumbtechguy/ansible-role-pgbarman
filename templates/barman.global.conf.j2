@@ -24,7 +24,7 @@ barman_home = {{ pgbarman_home }}
 log_file = /var/log/barman/barman.log
 
 ; Log level (see https://docs.python.org/3/library/logging.html#levels)
-log_level = {{ pgbarman_log_level }}
+log_level = {{ pgbarman_log_level|default('INFO') }}
 
 ; Default wal compression level: possible values are None (default), bzip2, gzip, pigz, pygzip or pybzip2
 compression = {{ pgbarman_compression }}
