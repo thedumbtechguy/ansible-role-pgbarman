@@ -41,8 +41,6 @@
   become_user: '{{ pgbarman_user }}'
   when: "'slot_name' in item.config|join(',')"
   with_items: '{{ pgbarman_server_configuration }}'
-  changed_when: False
   ignore_errors: true
   vars:
     ansible_ssh_pipelining: true
-
