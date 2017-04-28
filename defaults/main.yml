@@ -9,4 +9,5 @@ pgbarman_server_configuration: []
 
 pgbarman_compression: None
 
+pgbarman_backup_cron: []
 

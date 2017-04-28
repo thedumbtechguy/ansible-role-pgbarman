@@ -12,22 +12,22 @@ This role does not manage users or directories and if the defaults are not used,
 
 ### Global
 
-- `pgbarman_user` - user to run barman as.
+- `pgbarman_user`: user to run barman as.
   - Default: `barman`
   > **NOTE**: you are responsible for creating the user if defaults are not used.
 
-- `pgbarman_home` - home directory of barman user.
+- `pgbarman_home`: home directory of barman user.
   - Default: `/var/lib/barman`
   > **NOTE**: you are responsible for creating the directory and setting the user home if the defaults are not used.
 
-- `pgbarman_configuration_directory` - where to read additional configuration files from.
+- `pgbarman_configuration_directory`: where to read additional configuration files from.
   - Default: `/etc/barman.d`
   > **NOTE**: you are responsible for creating the directory if defaults are not used.
 
-- `pgbarman_pg_pass` - contents of the pg pass file. file is created when `defined` and deleted when `not defined`.
+- `pgbarman_pg_pass`: contents of the pg pass file. file is created when `defined` and deleted when `not defined`.
   - Default: `undefined`
 
-- `pgbarman_log_level` - logging level.
+- `pgbarman_log_level`: logging level.
   - Default: `WARNING`
   - Options:
     - `CRITICAL`
@@ -37,7 +37,7 @@ This role does not manage users or directories and if the defaults are not used,
     - `DEBUG`
     - `NOTSET`
 
-- `pgbarman_compression` - compression level to use for wal files.
+- `pgbarman_compression`: compression level to use for wal files.
   - Default: `None`
   - Options:
     - `None`
@@ -47,11 +47,27 @@ This role does not manage users or directories and if the defaults are not used,
     - `pygzip`
     - `pybzip2`
 
+- `pgbarman_backup_cron`: list of backup cron jobs to create
+  - Default: `[]`
+  - Example:
+  ```yaml
+  pgbarman_backup_cron:
+    - name: pg_backup_job # name of job. this name is used to identify the job so do not change it.
+      server: pg # name of server in 'pgbarman_server_configuration'. 'all' can be used for sequential backup of all servers.
+      month: * # month of the year the job should run ( 1-12, *, */2, etc ). default(omit)
+      weekday: * # day of the week that the job should run ( 0-6 for Sunday-Saturday, *, etc ). default(omit)
+      day: * # day of the month the job should run ( 1-31, *, */2, etc ). default(omit)
+      hour: * # hour when the job should run ( 0-23, *, */2, etc ). default(omit)
+      minute: * # minute when the job should run ( 0-59, *, */2, etc ). default(omit)
+      state: present # 'present' or 'absent'. default('present'). mark as absent if you wish to remove the job.
+  ```
+
+
 You can find more global configuration variables in [the global configuration](templates/barman.global.conf.j2) template.
 
 ### Servers
 
-- `pgbarman_server_configuration` - list of server configurations.
+- `pgbarman_server_configuration`: list of server configurations.
   - Default: `[]`
   - Example:
   ```yaml
@@ -87,6 +103,12 @@ Most of the global configuration items can be overriden in the per server as wel
             - { name: 'backup_method', value: 'postgres' }
             - { name: 'streaming_archiver', value: 'on' }
             - { name: 'slot_name', value: 'barman' }
+    pgbarman_backup_cron:
+      - name: pg_backup_job
+        server: pg
+        weekday: 6
+        hour: 0
+        minute: 0
   roles:
     - thedumbtechguy.pgbarman
 ```

@@ -9,3 +9,8 @@
   tags: 
     - pgbarman
     - configure
+
+- include: cron.yml
+  tags: 
+    - pgbarman
+    - cron
