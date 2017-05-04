@@ -1,8 +1,8 @@
 ---
 
 - name: add .pgpass file
-  copy:
-    content: '{{ pgbarman_pg_pass }}'
+  template:
+    src: pgpass.j2
     dest: '{{ pgbarman_home }}/.pgpass'
     owner: '{{ pgbarman_user }}'
     mode: 0400

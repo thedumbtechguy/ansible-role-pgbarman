@@ -24,8 +24,13 @@ This role does not manage users or directories and if the defaults are not used,
   - Default: `/etc/barman.d`
   > **NOTE**: you are responsible for creating the directory if defaults are not used.
 
-- `pgbarman_pg_pass`: contents of the pg pass file. file is created when `defined` and deleted when `not defined`.
+- `pgbarman_pg_pass`: list of credentials to put in the pg pass file. file is created when `defined` and deleted when `not defined`.
   - Default: `undefined`
+  - Example:
+  ```yaml
+  pgbarman_pg_pass:
+    - "hostname:port:database:username:password"
+  ```
 
 - `pgbarman_log_level`: logging level.
   - Default: `WARNING`
@@ -81,7 +86,6 @@ You can find more global configuration variables in [the global configuration](t
           - { name: 'streaming_archiver', value: 'on' }
           - { name: 'slot_name', value: 'barman' } # a slot is automatically created when this value item is defined
           - { name: 'backup_method', value: 'postgres' }
-          - { name: 'backup_method', value: 'postgres' }
   ```
 
 You can view the [ssh](files/ssh-server-template.conf) and [streaming](files/streaming-server-template.conf) configuration templates for guidelines.
@@ -93,7 +97,9 @@ Most of the global configuration items can be overriden in the per server as wel
 ```yaml
 - hosts: all
   vars:
-    pgbarman_pg_pass: "*:*:*:*:1"
+    pgbarman_pg_pass:
+      - "*:*:*:barman:pa55w0rd"
+      - "*:*:*:streaming_barman:p455w0rd"
     pgbarman_server_configuration:
       - name: db1
         description: streaming test for db1
