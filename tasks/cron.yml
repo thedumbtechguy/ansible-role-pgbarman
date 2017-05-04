@@ -13,4 +13,5 @@
     cron_file: barman_server_cron
     user: barman
     backup: yes
+  become: true
   with_items: "{{ pgbarman_backup_cron }}"
