@@ -12,7 +12,7 @@
 - name: remove .pgpass file
   file:
     path: '{{ pgbarman_home }}/.pgpass'
-    stfileate: absent
+    state: absent
   when: pgbarman_pg_pass is not defined
   become: true
   no_log: true
