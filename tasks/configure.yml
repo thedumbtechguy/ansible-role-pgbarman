@@ -5,6 +5,7 @@
     src: pgpass.j2
     dest: '{{ pgbarman_home }}/.pgpass'
     owner: '{{ pgbarman_user }}'
+    group: '{{ pgbarman_user_group }}'
     mode: 0400
   when: pgbarman_pg_pass is defined
   become: true
@@ -22,6 +23,7 @@
     src: barman.global.conf.j2
     dest: '/etc/barman.conf'
     owner: '{{ pgbarman_user }}'
+    group: '{{ pgbarman_user_group }}'
     mode: 0600
     backup: true
   become: true
@@ -31,6 +33,7 @@
     src: barman.server.conf.j2
     dest: '{{ pgbarman_configuration_directory }}/pgbarman_servers.conf'
     owner: '{{ pgbarman_user }}'
+    group: '{{ pgbarman_user_group }}'
     mode: 0600
     backup: true
   become: true

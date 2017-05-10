@@ -16,6 +16,10 @@ This role does not manage users or directories and if the defaults are not used,
   - Default: `barman`
   > **NOTE**: you are responsible for creating the user if defaults are not used.
 
+- `pgbarman_user_group`: barman user group.
+  - Default: `barman`
+  > **NOTE**: you are responsible for creating the group if defaults are not used.
+
 - `pgbarman_home`: home directory of barman user.
   - Default: `/var/lib/barman`
   > **NOTE**: you are responsible for creating the directory and setting the user home if the defaults are not used.
